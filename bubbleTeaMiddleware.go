@@ -131,6 +131,14 @@ func (m model) View() string {
 		return fmt.Sprintf(s)
 	}
 	help := lipgloss.NewStyle().PaddingLeft(2).Render(helpStyle(m.help.View(m.keys)))
-	return m.viewport.View() + "\n" + help
+	info := lipgloss.NewStyle().
+		Foreground(lipgloss.Color("241")).
+		Width(m.viewport.Width - lipgloss.Width(help) - 4).
+		Align(lipgloss.Right).
+		Render(fmt.Sprintf("%3.f%%", m.viewport.ScrollPercent()*100))
+
+	bar := lipgloss.JoinHorizontal(lipgloss.Top, help, info)
+
+	return m.viewport.View() + "\n" + lipgloss.NewStyle().Width(m.viewport.Width).Render(bar)
 	//return fmt.Sprintf(s, m.term, m.width, m.height)
 }
