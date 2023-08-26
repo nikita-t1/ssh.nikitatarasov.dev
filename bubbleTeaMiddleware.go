@@ -13,6 +13,7 @@ import (
 	"github.com/charmbracelet/wish"
 	bm "github.com/charmbracelet/wish/bubbletea"
 	"github.com/muesli/termenv"
+	"strings"
 	"time"
 )
 
@@ -83,6 +84,9 @@ func updateModel(m model) (model, error) {
 		return m, nil
 	}
 
+	if time.Now().Weekday() == time.Wednesday {
+		websiteContent = strings.Replace(websiteContent, "Moin", "It's Wednesday my dudes", 1)
+	}
 	str, err := renderer.Render(websiteContent)
 	if err != nil {
 		return m, nil

@@ -37,7 +37,7 @@ I love tinkering with electronics and building small projects using microcontrol
 I also enjoy watching movies and TV shows in my free time.
 My favorite genres are science fiction and superhero movies. You can follow my watch progress on [Trakt](https://trakt.tv/users/nikita-t1).
 
-Also I'm really into reading books.
+Also, I'm really into reading books.
 I mostly read non-fiction books about social sciences, psychology, and politics, but occasionally I also read some science fiction or even romance novels.
 You can follow my reading progress on [Goodreads](https://www.goodreads.com/user/show/143627750-nikita).
 
