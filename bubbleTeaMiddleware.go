@@ -127,7 +127,18 @@ func (m model) View() string {
 	//s += "Time: " + m.time.Format(time.RFC1123) + "\n\n"
 	//s += "Press 'q' to quit\n"
 	if m.width < 80 || m.height < 24 {
-		s = "Terminal too small to display\n"
+		s = "Terminal too small to display content\n"
+		s += "Please resize your terminal to at least 80x24\n\n"
+		width := lipgloss.NewStyle().Foreground(lipgloss.Color("#04B575")).Render(fmt.Sprintf("Width: %d", m.width))
+		if m.width < 80 {
+			width = lipgloss.NewStyle().Foreground(lipgloss.Color("9")).Render(fmt.Sprintf("Width: %d", m.width))
+		}
+		height := lipgloss.NewStyle().Foreground(lipgloss.Color("#04B575")).Render(fmt.Sprintf("Height: %d", m.height))
+		if m.height < 24 {
+			height = lipgloss.NewStyle().Foreground(lipgloss.Color("9")).Render(fmt.Sprintf("Height: %d", m.height))
+		}
+		s += "Your current terminal size is: " + fmt.Sprintf("%s x %s", width, height) + "\n\n"
+		s += "Press 'q' to quit\n"
 		return fmt.Sprintf(s)
 	}
 	help := lipgloss.NewStyle().PaddingLeft(2).Render(helpStyle(m.help.View(m.keys)))
@@ -140,5 +151,4 @@ func (m model) View() string {
 	bar := lipgloss.JoinHorizontal(lipgloss.Top, help, info)
 
 	return m.viewport.View() + "\n" + lipgloss.NewStyle().Width(m.viewport.Width).Render(bar)
-	//return fmt.Sprintf(s, m.term, m.width, m.height)
 }
