@@ -10,6 +10,7 @@ require (
 	github.com/charmbracelet/log v0.2.4
 	github.com/charmbracelet/ssh v0.0.0-20230822194956-1a051f898e09
 	github.com/charmbracelet/wish v1.1.1
+	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/muesli/termenv v0.15.2
 )
 

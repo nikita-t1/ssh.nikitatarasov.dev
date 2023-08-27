@@ -19,26 +19,30 @@ const (
 	port = 6699
 )
 
-func middlewareWithLogger() wish.Middleware {
+func middlewareWithLogger(tgBot *BotApi) wish.Middleware {
 	return func(sh ssh.Handler) ssh.Handler {
 		return func(s ssh.Session) {
 			ct := time.Now()
 			hpk := s.PublicKey() != nil
 			pty, _, _ := s.Pty()
 			log.Info("New Connection", "user", s.User(), "remote_addr", s.RemoteAddr().String(), "public_key", hpk, "command", s.Command(), "term", pty.Term, "width", pty.Window.Width, "height", pty.Window.Height)
+			tgBot.SendTelegramMessage(fmt.Sprintf("New Connection\nuser: %s\nremote_addr: %s\npublic_key: %t\ncommand: %s\nterm: %s\nwidth: %d\nheight: %d", s.User(), s.RemoteAddr().String(), hpk, s.Command(), pty.Term, pty.Window.Width, pty.Window.Height))
 			sh(s)
 			log.Info("Connection closed", "remote_addr", s.RemoteAddr().String(), "duration", time.Since(ct))
+			tgBot.SendTelegramMessage(fmt.Sprintf("Connection closed\nremote_addr: %s\nduration: %s", s.RemoteAddr().String(), time.Since(ct)))
 		}
 	}
 }
 
 func main() {
+	tgBot := InitializeTelegramBot()
 	s, err := wish.NewServer(
 		wish.WithAddress(fmt.Sprintf("%s:%d", host, port)),
 		wish.WithHostKeyPath(".ssh/term_info_ed25519"),
 		wish.WithMiddleware(
 			myCustomBubbleTeaMiddleware(),
-			middlewareWithLogger(),
+			middlewareWithLogger(tgBot),
+			//ratelimiter.Middleware(ratelimiter.NewRateLimiter(10, 4, 10)),
 		),
 	)
 	if err != nil {
