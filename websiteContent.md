@@ -7,7 +7,7 @@ I'm Nikita Tarasov, a self-taught developer from Germany
 
 with experience in Full-Stack Development using Java and JavaScript.
 
-- Let's get in touch -> [hi@nikitatarasov.dev]()
+- Let's get in touch -> [ssh6699@nikitatarasov.dev]()
 
 ## Background
 
