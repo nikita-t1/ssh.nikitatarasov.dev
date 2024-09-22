@@ -1,0 +1,14 @@
+[Unit]
+Description=ssh.nikitatarasov.dev
+After=network.target
+
+[Service]
+Type=simple
+User=ssh-nikitatarasov-dev
+Group=ssh-nikitatarasov-dev
+WorkingDirectory=/home/ssh-nikitatarasov-dev/
+ExecStart=/usr/bin/ssh-nikitatarasov-dev
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
