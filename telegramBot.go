@@ -7,8 +7,8 @@ import (
 	"strconv"
 )
 
-var chatId, _ = strconv.ParseInt(os.Getenv("CHAT_ID"), 10, 64)
-var token = os.Getenv("TOKEN")
+var chatId, _ = strconv.ParseInt(os.Getenv("TELEGRAM_CHAT_ID"), 10, 64)
+var token = os.Getenv("TELEGRAM_TOKEN")
 
 func InitializeTelegramBot() *BotApi {
 	bot, err := tgbotapi.NewBotAPI(token)
